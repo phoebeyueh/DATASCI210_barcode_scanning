@@ -3,25 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barcode Scanner</title>
+    <title>Barcode Scanner - Allergenie</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
+            font-family: 'Nanum Gothic', sans-serif; 
             background-color: #f4f4f4;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
+            margin: 0;
+            padding: 20px;
             color: #333;
         }
 
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+            font-weight: bold; 
+            color: black; 
+            margin: 0; 
+        }
+
+        .subheading {
+            text-align: center;
+            font-size: 16px; 
+            font-weight: normal; 
+            color: #333; 
+            margin-top: 5px;
+        }
+
+        h3 {
+            text-align: center;
+            font-weight: normal;
+            color: #6A1B9A; 
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .step {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9; 
+        }
+
+        .step h4 {
+            margin-bottom: 10px;
+        }
+
+        .instruction-box {
+            border: 1px dashed #6A1B9A;
+            border-radius: 4px;
+            padding: 15px;
+            background-color: #f1f0ff; 
+            margin-bottom: 10px; 
         }
 
         label {
@@ -36,10 +81,12 @@
         }
 
         button {
+            display: block; 
+            margin: 0 auto; 
             padding: 10px;
             border: none;
             border-radius: 4px;
-            background-color: #5cb85c;
+            background-color: #6A1B9A;
             color: white;
             font-size: 16px;
             cursor: pointer;
@@ -47,16 +94,71 @@
         }
 
         button:hover {
-            background-color: #4cae4c;
+            background-color: #5E35B1; 
+        }
+
+        .allergen-selection {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            background-color: #fff;
+        }
+
+        .allergen-selection label {
+            margin-left: 5px;
+        }
+
+        .allergen-selection h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px auto;
+            max-width: 150px; 
         }
     </style>
 </head>
 <body>
-    <h1>Upload a Barcode Image!</h1>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <label for="file">Select an image:</label>
-        <input type="file" name="file" accept="image/*" capture="camera" required>
-        <button type="submit">Upload</button>
-    </form>
+    <div class="container">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Allergenie Logo" class="logo">
+        <h2>Welcome to AllerGenie!</h2>
+        <p class="subheading">This is your place for real-time allergen detection.</p>
+        
+        <h3>Instructions:</h3>
+        
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <div class="step">
+                <h4>Step 1: Upload a Barcode Image</h4>
+                <div class="instruction-box">
+                    <p>Please upload a barcode image from your device.</p>
+                </div>
+                <label for="file">Select an image:</label>
+                <input type="file" name="file" accept="image/*" capture="camera" required>
+            </div>
+
+            <div class="step">
+                <h4>Step 2: Select Allergens</h4>
+                <div class="instruction-box">
+                    <p>After selecting an image, choose any allergens you want to check for.</p>
+                </div>
+                <div class="allergen-selection">
+                    <h3>Select Allergens (if any):</h3>
+                    <label><input type="checkbox" name="allergens" value="milk"> Milk</label><br>
+                    <label><input type="checkbox" name="allergens" value="gluten"> Gluten</label><br>
+                    <label><input type="checkbox" name="allergens" value="nuts"> Nuts</label><br>
+                    <label><input type="checkbox" name="allergens" value="soybeans"> Soybeans</label><br>
+                    <label><input type="checkbox" name="allergens" value="peanuts"> Peanuts</label><br>
+                    <label><input type="checkbox" name="allergens" value="celery"> Celery</label><br>
+                    <label><input type="checkbox" name="allergens" value="crustaceans"> Crustaceans</label><br>
+                    <label><input type="checkbox" name="allergens" value="mustard"> Mustard</label><br>
+                    <label><input type="checkbox" name="allergens" value="sesame-seeds"> Sesame Seeds</label><br>
+                </div>
+            </div>
+
+            <button type="submit">Check for Allergens!</button>
+        </form>
+    </div>
 </body>
 </html>
